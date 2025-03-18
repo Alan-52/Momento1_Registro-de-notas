@@ -32,4 +32,16 @@ def register():
         return
     users[username] = {"password": password, "role": role}
     save_data(USERS_FILE, users)
-    print("Usuario registrado exitosamente.")       
+    print("Usuario registrado exitosamente.")  
+
+
+# Función para iniciar sesión
+def login():
+    users = load_data(USERS_FILE, {})
+    username = input("Usuario: ")
+    password = input("Contraseña: ")
+    if username in users and users[username]["password"] == password:
+        print(f"Bienvenido {username} ({users[username]['role']})")
+        return username, users[username]["role"]
+    print("Credenciales incorrectas.")
+    return None, None     
