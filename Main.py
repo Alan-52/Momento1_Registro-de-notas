@@ -44,4 +44,27 @@ def login():
         print(f"Bienvenido {username} ({users[username]['role']})")
         return username, users[username]["role"]
     print("Credenciales incorrectas.")
-    return None, None     
+    return None, None   
+
+
+# Función para agregar notas (solo profesores)
+def add_note():
+    notes = load_data(NOTES_FILE, {})
+    student = input("Ingrese el nombre del estudiante: ")
+    note = float(input("Ingrese la nota: "))
+    if student not in notes:
+        notes[student] = []
+    notes[student].append(note)
+    save_data(NOTES_FILE, notes)
+    print("Nota agregada correctamente.")
+
+# Función para ver notas y promedio
+def view_notes():
+    notes = load_data(NOTES_FILE, {})
+    student = input("Ingrese su nombre de usuario: ")
+    if student in notes:
+        student_notes = notes[student]
+        print(f"Notas: {student_notes}")
+        print(f"Promedio: {sum(student_notes) / len(student_notes):.2f}")
+    else:
+        print("No hay notas registradas para este usuario.")
