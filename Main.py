@@ -68,3 +68,44 @@ def view_notes():
         print(f"Promedio: {sum(student_notes) / len(student_notes):.2f}")
     else:
         print("No hay notas registradas para este usuario.")
+
+# Función principal de navegación
+def main():
+    while True:
+        print("1. Registrarse")
+        print("2. Iniciar sesión")
+        print("3. Salir")
+        opcion = input("Seleccione una opción: ")
+        
+        if opcion == "1":
+            register()
+        elif opcion == "2":
+            user, role = login()
+            if role:
+                while True:
+                    if role == "profesor":
+                        print("1. Agregar nota")
+                        print("2. Ver notas")
+                        print("3. Cerrar sesión")
+                        choice = input("Seleccione una opción: ")
+                        if choice == "1":
+                            add_note()
+                        elif choice == "2":
+                            view_notes()
+                        elif choice == "3":
+                            break
+                    elif role == "estudiante":
+                        print("1. Ver notas")
+                        print("2. Cerrar sesión")
+                        choice = input("Seleccione una opción: ")
+                        if choice == "1":
+                            view_notes()
+                        elif choice == "2":
+                            break
+        elif opcion == "3":
+            break
+        else:
+            print("Opción inválida.")
+
+if __name__ == "__main__":
+    main()
